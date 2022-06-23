@@ -1,4 +1,4 @@
-package knf.hydra.module.test1
+package knf.hydra.module.cuevana
 
 import org.junit.Test
 
