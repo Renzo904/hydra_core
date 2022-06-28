@@ -10,13 +10,13 @@ import knf.hydra.core.models.ContentItemModel
 import knf.hydra.core.models.data.LinkData
 import kotlin.random.Random
 
-class CuevanaContentItemModel(): ContentItemModel() {
-    override var itemLink: LinkData = LinkData("https://embedsito.com/v/j-nlgady1rdgelj")
-    override var id: Int = Random.nextInt()
+class CuevanaContentItemModel(seriesId: String, link: String, chapterNumber: Double, thumbLink: String?): ContentItemModel() {
+    override var itemLink: LinkData = LinkData(link)
+    override var id: Int = "$seriesId-$chapterNumber".hashCode()
     override var type: String = "Chapter %s"
-    override var number: Double = 1.0
-    override var itemTitle: String? = "asdasd"
-    override var thumbnailLink: String? = ""
+    override var number: Double = chapterNumber
+    override var itemTitle: String? = null
+    override var thumbnailLink: String? = thumbLink
     override var commentsLink: String? = null
     override var isMedia: Boolean = true
 }

@@ -8,10 +8,12 @@ package knf.hydra.module.cuevana.retrofit
 
 import knf.hydra.core.models.BypassModel
 import knf.hydra.core.models.InfoModel
+import knf.hydra.core.models.data.ReviewResult
 import knf.hydra.module.cuevana.models.CuevanaDirectoryModel
 import knf.hydra.module.cuevana.models.CuevanaRecentModel
 import knf.hydra.module.cuevana.models.CuevanaSearchModel
 import okhttp3.OkHttpClient
+import org.json.JSONObject
 import pl.droidsonroids.retrofit2.JspoonConverterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -54,5 +56,23 @@ object NetworkRepository {
     fun getRecentPage(bypassModel: BypassModel): List<CuevanaRecentModel> {
         currentBypass = bypassModel
         return factory.getRecentPage(bypassModel.asMap(defaultCookies)).execute().body()!!.list
+    }
+
+    fun getFembedUrl(id: String, bypassModel: BypassModel): String {
+        return try {
+            JSONObject(factory.getFembedUrl(id, bypassModel.asMap(defaultCookies)).execute().body()!!).getString("url").replace("\\", "")
+        }catch (e:Exception){
+            e.printStackTrace()
+            ""
+        }
+    }
+
+    fun getApiAlfaUrl(code: String, url: String): String {
+        return try {
+            factory.getApiAlfaUrl(code, url).execute().raw().request.url.toString()
+        }catch (e:Exception){
+            e.printStackTrace()
+            ""
+        }
     }
 }

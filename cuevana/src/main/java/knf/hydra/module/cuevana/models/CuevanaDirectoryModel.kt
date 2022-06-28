@@ -41,7 +41,6 @@ class CuevanaDirectoryModel: DirectoryModel() {
     class IdConverter: ElementConverter<Int> {
         override fun convert(node: Element, selector: Selector): Int {
             val id = node.text().substringAfterLast("/")
-            Log.d("CuevanaDebug", node.attr("href"))
             return id.hashCode()
         }
     }

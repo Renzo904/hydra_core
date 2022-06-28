@@ -44,6 +44,7 @@ class CuevanaRecentModel: RecentModel() {
 
     override var category: Category = Category.SERIES
 
+    @Selector("span.Year", converter = ChapterNumberConverter::class)
     override var type: String = "Chapter %s"
 
     override var isMedia: Boolean = true
@@ -51,8 +52,6 @@ class CuevanaRecentModel: RecentModel() {
     class IdConverter: ElementConverter<Int> {
         override fun convert(node: Element, selector: Selector): Int {
             val infoLink = SeriesLinkExtractor().convert(node, selector)
-            Log.d("CONVERTERDEBUG", infoLink)
-            Log.d("CONVERTERDEBUG", CuevanaDirectoryModel.IdConverter().convert(Element(infoLink), selector).toString())
             return CuevanaDirectoryModel.IdConverter().convert(Element(infoLink), selector).hashCode()
         }
     }
@@ -74,10 +73,16 @@ class CuevanaRecentModel: RecentModel() {
         override fun convert(node: Element, selector: Selector): Double {
             val string = node.text().replace("x", ".")
             val number: Double? = string.toDoubleOrNull()
-            Log.d("CHAPTERNUMBER", number.toString())
             return number ?: 0.0
         }
     }
+
+    class ChapterNumberConverter: ElementConverter<String> {
+        override fun convert(node: Element, selector: Selector): String {
+            return "Chapter " + node.text()
+        }
+    }
+
 }
 
 class RecentsPage {

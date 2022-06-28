@@ -43,36 +43,83 @@ class Repository : HeadRepository(){
     }
 
     override suspend fun sourceData(content: ContentItemMin, bypassModel: BypassModel): SourceData<*>{
-        Log.d("SOURCEDATADEBUG", content.link)
-        Log.d("SOURCEDATADEBUG", "Llego al sourcedata")
         return VideoSource(
             flow {
-                val asd = VideoItem("Zippyshare", "https://embedsito.com/v/136xyaj7q6p8kn1", quality = VideoItem.Quality.MULTIPLE, canDownload = true, type = "SUB")
-                val asdd = VideoItem("Zippysharde", "https://embedsito.com/v/136xyaj7q6p8kn1", quality = VideoItem.Quality.MULTIPLE, canDownload = true, type = "SUB")
-                val asddd = VideoItem("Zippysharse", "https://embedsito.com/v/136xyaj7q6p8kn1", quality = VideoItem.Quality.MULTIPLE, canDownload = true, type = "SUB")
                 val items = mutableListOf<VideoItem>()
-                
-                for(i in 1..10){
-                    items.add(
-                        VideoItem(
-                            "Test$i",
-                            "https://embedsito.com/v/136xyaj7q6p8kn1",
-                            quality = VideoItem.Quality.MULTIPLE,
-                            canDownload = i%2==0,
-                            type = "TEST"
-                        )
+                val doc = Jsoup.connect(content.link).headers(bypassModel.asMap(NetworkRepository.defaultCookies)).get()
+                val iframes = doc.select("div.TPlayerTb")
+                try {
+                    iframes.let { elements ->
+                        elements.forEach { element -> run {
+                            val iframe = element.selectFirst("iframe")
+                            val type = if(element.id().contains("OptL")) "LAT" else "SUB"
+                            val link = iframe.attr("data-src")
+                            if(
+                                link.length < 400 &&
+                                !link.contains("fembed")
+                            ){
+                                return@forEach
+                            }
 
-                    )
-                }
-                //items.add(asd)
-                //items.add(asdd)
-                //items.add(asddd)
 
-                items.forEach {
-                    Log.d("SOURCEDATADEBUG", it.name)
-                    Log.d("SOURCEDATADEBUG", it.link)
-                    Log.d("SOURCEDATADEBUG", if (it.canDownload) "True" else "False")
-                    Log.d("SOURCEDATADEBUG", it.quality.toString())
+
+                            if(iframe != null){
+                                val code = link.substringAfterLast("?h=")
+                                when {
+                                    link.contains("fembed") -> {
+                                        val videoLink = withContext(Dispatchers.IO){
+                                            NetworkRepository.getFembedUrl(code, bypassModel)
+                                        }
+                                        items.add(
+                                            VideoItem(
+                                                "Fembed",
+                                                videoLink,
+                                                quality = VideoItem.Quality.MULTIPLE,
+                                                canDownload = true,
+                                                type = type
+                                            )
+                                        )
+                                    }
+
+                                    link.contains("apialfa.tomatomatela") -> {
+                                        val codeTwo = withContext(Dispatchers.IO) {
+                                            NetworkRepository.getApiAlfaUrl(
+                                                url = "rd.php",
+                                                code = code
+                                            )
+                                        }
+
+                                        if(codeTwo != ""){
+                                            val videoLink = withContext(Dispatchers.IO) {
+                                                NetworkRepository.getApiAlfaUrl(
+                                                    url = "redirect_ddh.php",
+                                                    code = codeTwo.substringAfterLast("?h=")
+                                                )
+                                            }
+                                            if(videoLink.contains("tomatomatela")){
+                                                items.add(
+                                                    VideoItem(
+                                                        "Tomatomatela",
+                                                        videoLink,
+                                                        quality = VideoItem.Quality.MEDIUM,
+                                                        canDownload = true,
+                                                        type = type
+                                                    )
+                                                )
+                                            }
+                                        }
+                                    }
+
+                                    else -> {}
+
+                                }
+                            }
+                        }
+                        }
+
+                    }
+                } catch (e:Exception) {
+                    e.printStackTrace()
                 }
                 emit(items)
             }

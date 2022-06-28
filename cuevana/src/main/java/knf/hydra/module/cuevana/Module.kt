@@ -15,7 +15,7 @@ import knf.hydra.module.cuevana.extras.CuevanaConfig
 class Module: HeadModule() {
     override val moduleVersionCode: Int = BuildConfig.VERSION_CODE
     override val moduleVersionName: String = BuildConfig.VERSION_NAME
-    override val baseUrl: String = "https://ww3.cuevana3.me/"
+    override val baseUrl: String = "https://ww1.cuevana3.me/"
     override val moduleName: String = "Cuevana"
     override val dataRepository: HeadRepository = Repository()
     override val config: HeadConfig = CuevanaConfig()

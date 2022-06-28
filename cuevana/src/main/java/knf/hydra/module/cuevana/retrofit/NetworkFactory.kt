@@ -22,4 +22,12 @@ interface NetworkFactory {
 
     @GET("/page/{page}/")
     fun getSearchPage(@Path(value = "page") page: Int, @Query("s") query: String, @HeaderMap bypass: Map<String,String>): Call<SearchPage>
+
+    @FormUrlEncoded
+    @POST
+    fun getFembedUrl(@Field("h") id: String, @HeaderMap bypass: Map<String,String>, @Url url: String = "https://api.cuevana3.me/fembed/api.php"): Call<String>
+
+    @FormUrlEncoded
+    @POST("https://api.cuevana3.me/ir/{path}")
+    fun getApiAlfaUrl(@Field("url") code: String, @Path(value = "path") url: String): Call<String>
 }

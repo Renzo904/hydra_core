@@ -10,6 +10,7 @@ import knf.hydra.core.HeadConfig
 import knf.hydra.core.models.data.BypassBehavior
 import knf.hydra.core.models.data.DialogStyle
 import knf.hydra.module.cuevana.decoders.GoCDN
+import knf.hydra.module.cuevana.decoders.JWPlayer
 
 class CuevanaConfig: HeadConfig() {
     init {
@@ -25,7 +26,8 @@ class CuevanaConfig: HeadConfig() {
             dialogStyle = DialogStyle.CLASSIC
         )
         customDecoders = listOf(
-            GoCDN()
+            GoCDN(),
+            JWPlayer()
         )
         searchBarText = "Buscar Peliculas o Series"
     }
