@@ -8,7 +8,6 @@ package knf.hydra.module.cuevana.models
 
 import knf.hydra.core.models.ContentItemModel
 import knf.hydra.core.models.data.LinkData
-import kotlin.random.Random
 
 class CuevanaContentItemModel(seriesId: String, link: String, chapterNumber: Double, thumbLink: String?): ContentItemModel() {
     override var itemLink: LinkData = LinkData(link)

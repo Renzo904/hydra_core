@@ -1,18 +1,12 @@
 package knf.hydra.module.cuevana.repository
 
-import android.net.Uri
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.google.gson.JsonObject
 import knf.hydra.core.models.ContentItemModel
-import knf.hydra.module.cuevana.extras.BuildVars.Vars.tmbdApiKey
 import knf.hydra.module.cuevana.models.CuevanaMovieInfo
 import knf.hydra.module.cuevana.models.CuevanaContentItemModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
-import java.net.URI
-import java.net.URL
 
 class ChaptersSource (private  val constructor: CuevanaMovieInfo.ChapterConstructor) : PagingSource<Int, ContentItemModel>() {
     override fun getRefreshKey(state: PagingState<Int, ContentItemModel>): Int? {

@@ -11,7 +11,6 @@ import knf.hydra.core.models.data.Option
 import knf.hydra.core.models.data.SourceItem
 import knf.hydra.core.models.data.VideoDecoder
 import org.json.JSONObject
-import org.jsoup.Jsoup
 import java.net.URL
 
 class JWPlayer: VideoDecoder() {

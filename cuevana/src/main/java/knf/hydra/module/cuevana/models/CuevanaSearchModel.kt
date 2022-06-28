@@ -6,7 +6,6 @@
 
 package knf.hydra.module.cuevana.models
 
-import android.util.Log
 import knf.hydra.core.models.DirectoryModel
 import knf.hydra.core.models.data.Category
 import knf.hydra.core.models.data.LayoutType

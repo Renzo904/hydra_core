@@ -10,12 +10,11 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import knf.hydra.core.models.BypassModel
 import knf.hydra.core.models.DirectoryModel
-import knf.hydra.core.models.data.FilterRequest
 import knf.hydra.module.cuevana.retrofit.NetworkRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class DirectorySource(private val bypassModel: BypassModel, private val filters: FilterRequest? ) : PagingSource<Int, DirectoryModel>() {
+class DirectorySource(private val bypassModel: BypassModel) : PagingSource<Int, DirectoryModel>() {
     override fun getRefreshKey(state: PagingState<Int, DirectoryModel>): Int? {
         return state.anchorPosition
     }

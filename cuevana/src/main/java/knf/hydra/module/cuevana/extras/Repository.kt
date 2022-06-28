@@ -6,8 +6,6 @@
 
 package knf.hydra.module.cuevana.extras
 
-import android.provider.MediaStore
-import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -22,11 +20,9 @@ import knf.hydra.module.cuevana.repository.RecentsSource
 import knf.hydra.module.cuevana.repository.SearchSource
 import knf.hydra.module.cuevana.retrofit.NetworkRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
 import org.jsoup.Jsoup
 
 class Repository : HeadRepository(){
@@ -146,7 +142,7 @@ class Repository : HeadRepository(){
                 pageSize = 45,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { SearchSource(query, bypassModel, filters) }
+            pagingSourceFactory = { SearchSource(query, bypassModel) }
         ).flow
     }
 
@@ -159,7 +155,7 @@ class Repository : HeadRepository(){
                 pageSize = 45,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { DirectorySource(bypassModel, filters) }
+            pagingSourceFactory = { DirectorySource(bypassModel) }
         ).flow
     }
 

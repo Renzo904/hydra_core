@@ -6,7 +6,6 @@
 
 package knf.hydra.module.cuevana.models
 
-import android.util.Log
 import androidx.room.PrimaryKey
 import knf.hydra.core.models.RecentModel
 import knf.hydra.core.models.data.Category
@@ -14,8 +13,6 @@ import knf.hydra.module.cuevana.Module
 import org.jsoup.nodes.Element
 import pl.droidsonroids.jspoon.ElementConverter
 import pl.droidsonroids.jspoon.annotation.Selector
-import java.lang.Math.log10
-import kotlin.math.truncate
 import kotlin.random.Random
 
 

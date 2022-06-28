@@ -8,7 +8,6 @@ package knf.hydra.module.cuevana.retrofit
 
 import knf.hydra.core.models.BypassModel
 import knf.hydra.core.models.InfoModel
-import knf.hydra.core.models.data.ReviewResult
 import knf.hydra.module.cuevana.models.CuevanaDirectoryModel
 import knf.hydra.module.cuevana.models.CuevanaRecentModel
 import knf.hydra.module.cuevana.models.CuevanaSearchModel

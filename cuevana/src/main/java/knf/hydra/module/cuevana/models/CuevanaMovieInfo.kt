@@ -6,27 +6,19 @@
 
 package knf.hydra.module.cuevana.models
 
-import android.util.Log
 import androidx.annotation.Keep
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.PagingData
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import knf.hydra.core.models.ContentData
-import knf.hydra.core.models.ContentItemModel
 import knf.hydra.core.models.InfoModel
 import knf.hydra.core.models.data.Category
 import knf.hydra.core.models.data.LayoutType
 import knf.hydra.module.cuevana.repository.ChaptersSource
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.flow
 import org.jsoup.nodes.Element
 import pl.droidsonroids.jspoon.ElementConverter
 import pl.droidsonroids.jspoon.annotation.Selector
-import java.net.URL
-import java.text.DecimalFormat
 import kotlin.random.Random
 
 @Entity
